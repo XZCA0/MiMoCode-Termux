@@ -1,0 +1,11 @@
+{
+  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "instructions": [
+    "/data/data/com.termux/files/home/.config/mimocode/AGENTS.md"
+  ],
+  "skills": {
+    "paths": [
+      "/data/data/com.termux/files/home/.config/mimocode/skills"
+    ]
+  }
+}

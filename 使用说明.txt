@@ -1,0 +1,40 @@
+════════════════════════════════════════════════
+  MiMo code 整合包（Termux/安卓）使用说明 v0.1.17
+════════════════════════════════════════════════
+
+【这是什么】
+与 Claude_.zip（Claude Code 整合包）对应的 MiMo Code 版本：
+  an/mimo          官方 MiMoCode 0.1.17 linux-arm64 二进制（glibc 版）
+  mimocode.py      图形菜单 + 启动器（经 glibc-runner 运行 an/mimo）：
+                   装依赖 / 配置模型 / 启动agent / 更新 / 卸载
+  .config/mimocode 全局配置（mimocode.jsonc + AGENTS.md + 28 个技能）
+
+【安装】
+把本文件夹里的全部内容（含隐藏目录 .config）复制到 Termux 用户目录：
+  /data/data/com.termux/files/home/
+例如用 MT 管理器复制，或在 Termux 里执行：
+  cp -r MiMoCode_/* ~/ && cp -r MiMoCode_/.config ~/
+
+【使用】
+  python mimocode.py
+菜单说明：
+  1.安装依赖      安装 python、glibc-repo、glibc、glibc-runner、openssl-glibc
+  2.配置模型      MiMo官方登录(OAuth) / MiMo / DeepSeek / 智谱GLM / 豆包AI / 自定义
+  3.启动agent     直接打开 MiMo Code（无需选择，自动启动）
+  4.更新MiMoCode  从官方源下载新版并原子替换 an/mimo
+  5.退出
+
+【说明】
+* an/mimo 是 glibc 版二进制，在 Termux 里必须经 glibc-runner 运行，
+  直接执行或用 ld-linux 加载都会报错，mimocode.py 已处理好。
+* 若菜单顶部出现「⚠ glibc-runner 或 an/mimo 缺失」（常见于复制到另一个
+  Termux 环境还没装依赖），执行「1.安装依赖」即可，菜单本身不会崩溃。
+* 模型/接口配置在菜单「2.配置模型」里完成，写入
+  ~/.config/mimocode/mimocode.jsonc 并自动校验；也可用 MiMoCode 自带方式
+  （mimo providers login 或 TUI 里 /connect）。
+* 28 个技能（.config/mimocode/skills）来自 Claude_.zip 的 .claude/skills，
+  SKILL.md 格式与 MiMoCode 通用，已在配置里通过 skills.paths 全局加载。
+* AGENTS.md 是行为准则（来自 Claude_.zip 的 CLAUDE.md），通过 instructions
+  配置全局注入，所有项目生效。
+* 本包与系统里已有的 mimo 命令互相独立，互不影响。
+* 卸载：python mimocode.py uninstall（保留配置和技能；提示里有彻底删除的命令）
